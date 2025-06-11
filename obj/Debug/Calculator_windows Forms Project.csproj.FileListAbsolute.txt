@@ -1,0 +1,10 @@
+E:\Projects\Calculator_windows Forms Project\bin\Debug\Calculator_windows Forms Project.exe.config
+E:\Projects\Calculator_windows Forms Project\bin\Debug\Calculator_windows Forms Project.exe
+E:\Projects\Calculator_windows Forms Project\bin\Debug\Calculator_windows Forms Project.pdb
+E:\Projects\Calculator_windows Forms Project\obj\Debug\Calculator_windows Forms Project.csproj.AssemblyReference.cache
+E:\Projects\Calculator_windows Forms Project\obj\Debug\Calculator_windows_Forms_Project.Form1.resources
+E:\Projects\Calculator_windows Forms Project\obj\Debug\Calculator_windows_Forms_Project.Properties.Resources.resources
+E:\Projects\Calculator_windows Forms Project\obj\Debug\Calculator_windows Forms Project.csproj.GenerateResource.cache
+E:\Projects\Calculator_windows Forms Project\obj\Debug\Calculator_windows Forms Project.csproj.CoreCompileInputs.cache
+E:\Projects\Calculator_windows Forms Project\obj\Debug\Calculator_windows Forms Project.exe
+E:\Projects\Calculator_windows Forms Project\obj\Debug\Calculator_windows Forms Project.pdb
