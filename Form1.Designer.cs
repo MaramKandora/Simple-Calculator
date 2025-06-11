@@ -349,7 +349,6 @@
             this.lblCalculation.Tag = "null";
             this.lblCalculation.Text = "0";
             this.lblCalculation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblCalculation.Click += new System.EventHandler(this.lblCalculation_Click);
             // 
             // lblScreen
             // 
@@ -365,7 +364,6 @@
             this.lblScreen.Tag = "null";
             this.lblScreen.Text = " ";
             this.lblScreen.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblScreen.Click += new System.EventHandler(this.lblScreen_Click);
             // 
             // panel1
             // 

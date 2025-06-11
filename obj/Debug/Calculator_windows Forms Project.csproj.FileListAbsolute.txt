@@ -8,3 +8,13 @@ E:\Projects\Calculator_windows Forms Project\obj\Debug\Calculator_windows Forms 
 E:\Projects\Calculator_windows Forms Project\obj\Debug\Calculator_windows Forms Project.csproj.CoreCompileInputs.cache
 E:\Projects\Calculator_windows Forms Project\obj\Debug\Calculator_windows Forms Project.exe
 E:\Projects\Calculator_windows Forms Project\obj\Debug\Calculator_windows Forms Project.pdb
+E:\GitHupReprositries\Simple-Calculator\obj\Debug\Calculator_windows Forms Project.csproj.AssemblyReference.cache
+E:\GitHupReprositries\Simple-Calculator\obj\Debug\Calculator_windows_Forms_Project.Form1.resources
+E:\GitHupReprositries\Simple-Calculator\obj\Debug\Calculator_windows_Forms_Project.Properties.Resources.resources
+E:\GitHupReprositries\Simple-Calculator\obj\Debug\Calculator_windows Forms Project.csproj.GenerateResource.cache
+E:\GitHupReprositries\Simple-Calculator\obj\Debug\Calculator_windows Forms Project.csproj.CoreCompileInputs.cache
+E:\GitHupReprositries\Simple-Calculator\obj\Debug\Calculator_windows Forms Project.exe
+E:\GitHupReprositries\Simple-Calculator\obj\Debug\Calculator_windows Forms Project.pdb
+E:\GitHupReprositries\Simple-Calculator\bin\Debug\Calculator_windows Forms Project.exe.config
+E:\GitHupReprositries\Simple-Calculator\bin\Debug\Calculator_windows Forms Project.exe
+E:\GitHupReprositries\Simple-Calculator\bin\Debug\Calculator_windows Forms Project.pdb

@@ -14,7 +14,7 @@ namespace Calculator_windows_Forms_Project
 
     public partial class Form1 : Form
     {
-       
+
 
         public Form1()
         {
@@ -24,7 +24,7 @@ namespace Calculator_windows_Forms_Project
         {
             public double FirstOperand;
             public double SecondOperand;
-            
+
         }
 
 
@@ -38,6 +38,7 @@ namespace Calculator_windows_Forms_Project
 
         struct strOperation
         {
+            public bool IsTheLastOperationIsUnary;
             public char? OpSign;
             public bool IsOperationHasSign;
             public strOpOprands OpOperands;
@@ -45,20 +46,20 @@ namespace Calculator_windows_Forms_Project
 
 
         strOperation _Operation;
-        
 
-      
 
-       
+
+
+
 
         private void btnCalculSign_Click(object sender, EventArgs e)
         {
             Button SignButtton = (Button)sender;
 
-          
-           
 
-            if (!_Operation.IsOperationHasSign) 
+
+
+            if (!_Operation.IsOperationHasSign)
             {
                 if (lblCalculation.Text != "")
                 {
@@ -77,13 +78,19 @@ namespace Calculator_windows_Forms_Project
 
                 bool IsBothOperandsAreZeros = (_Operation.OpOperands.FirstOperand == 0) && (_Operation.OpOperands.SecondOperand == 0);
 
-                if ( IsBothOperandsAreZeros) 
+                if (IsBothOperandsAreZeros)
                 {
-                    lblScreen.Text = lblScreen.Text.Remove(lblScreen.Text.Length-1);
-                    lblScreen.Text += SignButtton.Tag;
+                    for (int i = lblScreen.Text.Length - 1; i >= 0; i--)
+                    {
+                        if (isCalculaionSign(lblScreen.Text[i]))
+                        {
+                            lblScreen.Text = lblScreen.Text.Remove(i);
+                            lblScreen.Text += SignButtton.Tag;
+                            break;
+                        }
+                    }
 
-                    
-                   
+
                 }
                 else
                 {
@@ -96,7 +103,7 @@ namespace Calculator_windows_Forms_Project
                 }
             }
 
-          
+
             _Operation.OpSign = Convert.ToChar(SignButtton.Tag);
             _Operation.IsOperationHasSign = true;
 
@@ -107,7 +114,11 @@ namespace Calculator_windows_Forms_Project
         {
             Button NumButton = (Button)sender;
 
-
+            if (_Operation.IsTheLastOperationIsUnary)
+            {
+                lblCalculation.Text = "";
+                _Operation.IsTheLastOperationIsUnary = false;
+            }
 
             if (lblCalculation.Text == "0")
             {
@@ -118,7 +129,7 @@ namespace Calculator_windows_Forms_Project
                     lblCalculation.Text = NumButton.Tag.ToString();
             }
 
-           
+
             else
             {
                 lblCalculation.Text += NumButton.Tag;
@@ -131,7 +142,7 @@ namespace Calculator_windows_Forms_Project
             if (string.IsNullOrEmpty(lblCalculation.Text))
                 return;
 
-            if (lblScreen.Text.Contains("=")) 
+            if (lblScreen.Text.Contains("="))
             {
                 lblScreen.Text = "";
                 _Operation.OpOperands.FirstOperand = 0;
@@ -162,25 +173,25 @@ namespace Calculator_windows_Forms_Project
             ZeroingCalculator();
         }
 
-       
-   
-       
+
+
+
         bool isCalculaionSign(char C)
         {
             char[] arrCalculationSings = { '+', '-', '*', '/' };
 
-            for (int i = 0; i < arrCalculationSings.Length; i++) 
+            for (int i = 0; i < arrCalculationSings.Length; i++)
             {
                 if (arrCalculationSings[i] == C)
                 {
-                        return true;
+                    return true;
                 }
             }
 
-            return false;   
+            return false;
         }
 
-       
+
 
         private void btnClearEntry_Click(object sender, EventArgs e)
         {
@@ -190,7 +201,7 @@ namespace Calculator_windows_Forms_Project
                 _Operation.OpOperands.FirstOperand = 0;
             }
 
-            else if (lblScreen.Text != "") 
+            else if (lblScreen.Text != "")
             {
                 if (!isCalculaionSign(lblScreen.Text[lblScreen.Text.Length - 1]))
                 {
@@ -216,7 +227,7 @@ namespace Calculator_windows_Forms_Project
 
         private void btn_FlipSign_Click(object sender, EventArgs e)
         {
-            
+
 
             if (string.IsNullOrWhiteSpace(lblCalculation.Text))
                 return;
@@ -232,41 +243,61 @@ namespace Calculator_windows_Forms_Project
         }
 
 
-       
+        double CalculatePercent(double Number, double Percent, char? OpSign)
+        {
+            if (OpSign == '+' || OpSign == '-')
+            {
+                return (Number * (Percent / 100));
+            }
+
+            else if (OpSign == '*' || OpSign == '/')
+            {
+                return (Percent / 100);
+            }
+            else
+            {
+                return (Percent / 100);
+            }
+
+
+        }
 
         private void btnPercent_Click(object sender, EventArgs e)
         {
             double Number = _Operation.OpOperands.FirstOperand;
             double Perccent = Convert.ToDouble(lblCalculation.Text);
 
-            if (Number == 0 || Perccent == 0) 
+            if (!_Operation.IsOperationHasSign)
             {
-                lblCalculation.Text = "0";
-                lblScreen.Text = "0";
-                return;
+                if (Number == 0 || Perccent == 0)
+                {
+                    lblCalculation.Text = "0";
+                    lblScreen.Text = "0";
+                    return;
+                }
             }
 
-            double Result = Number*(Perccent / 100);
+            double Result = CalculatePercent(Number, Perccent, _Operation.OpSign);
 
             _Operation.OpOperands.SecondOperand = Result;
 
             lblCalculation.Text = Result.ToString();
 
-           
-                lblScreen.Text =_Operation.OpOperands.FirstOperand.ToString()+_Operation.OpSign
-                    +_Operation.OpOperands.SecondOperand;
+
+            lblScreen.Text = _Operation.OpOperands.FirstOperand.ToString() + _Operation.OpSign
+                + _Operation.OpOperands.SecondOperand;
+
+
+
         }
-
-
-        
 
         void PerformUnaryOperationOnEntry(enUnaryOpType OpType)
         {
 
-           
+
             double Number = Convert.ToDouble(lblCalculation.Text);
 
-            switch(OpType)
+            switch (OpType)
             {
                 case enUnaryOpType.Reciprocal:
                     Number = 1 / Number;
@@ -281,22 +312,26 @@ namespace Calculator_windows_Forms_Project
                     break;
             }
 
-            if (_Operation.OpSign != null ) 
+            if (_Operation.OpSign != null)
             {
                 _Operation.OpOperands.SecondOperand = Number;
                 lblScreen.Text = _Operation.OpOperands.FirstOperand.ToString() + _Operation.OpSign
                     + _Operation.OpOperands.SecondOperand.ToString();
- 
+
             }
             else
             {
-                _Operation.OpOperands.FirstOperand = Number;
-                lblScreen.Text = _Operation.OpOperands.FirstOperand.ToString();
+                //_Operation.OpOperands.FirstOperand = Number;
+                //lblScreen.Text = _Operation.OpOperands.FirstOperand.ToString();
+                lblScreen.Text = Number.ToString();
             }
 
             lblCalculation.Text = Number.ToString();
-           
+
+            _Operation.IsTheLastOperationIsUnary = true;
+
         }
+
 
         private void btn_1OverX_Click(object sender, EventArgs e)
         {
@@ -333,7 +368,7 @@ namespace Calculator_windows_Forms_Project
         {
 
             _Operation.IsOperationHasSign = false;
-            _Operation.OpSign = null; 
+            _Operation.OpSign = null;
         }
 
         double GetResult()
@@ -341,10 +376,10 @@ namespace Calculator_windows_Forms_Project
 
 
             double Result;
-            switch(_Operation.OpSign)
+            switch (_Operation.OpSign)
             {
                 case '+':
-                    Result= (_Operation.OpOperands.FirstOperand) + (_Operation.OpOperands.SecondOperand);
+                    Result = (_Operation.OpOperands.FirstOperand) + (_Operation.OpOperands.SecondOperand);
                     break;
                 case '-':
                     Result = (_Operation.OpOperands.FirstOperand) - (_Operation.OpOperands.SecondOperand);
@@ -352,22 +387,22 @@ namespace Calculator_windows_Forms_Project
                 case '/':
                     Result = (_Operation.OpOperands.FirstOperand) / (_Operation.OpOperands.SecondOperand);
                     break;
-                case'*':
+                case '*':
                     Result = (_Operation.OpOperands.FirstOperand) * (_Operation.OpOperands.SecondOperand);
                     break;
                 default:
                     Result = (_Operation.OpOperands.FirstOperand) + (_Operation.OpOperands.SecondOperand);
                     break;
-            
+
             }
 
-            
+
 
             return Result;
 
         }
 
-     
+
         private void btnEqual_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(lblScreen.Text) || string.IsNullOrWhiteSpace(lblCalculation.Text))
@@ -385,7 +420,7 @@ namespace Calculator_windows_Forms_Project
             {
                 _Operation.OpOperands.SecondOperand = Convert.ToDouble(lblCalculation.Text);
             }
-           
+
 
             lblScreen.Text = _Operation.OpOperands.FirstOperand.ToString() + _Operation.OpSign
                 + _Operation.OpOperands.SecondOperand + '=';
@@ -400,14 +435,6 @@ namespace Calculator_windows_Forms_Project
 
         }
 
-        private void lblScreen_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblCalculation_Click(object sender, EventArgs e)
-        {
-
-        }
+      
     }
 }
