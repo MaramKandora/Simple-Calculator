@@ -321,8 +321,7 @@ namespace Calculator_windows_Forms_Project
             }
             else
             {
-                //_Operation.OpOperands.FirstOperand = Number;
-                //lblScreen.Text = _Operation.OpOperands.FirstOperand.ToString();
+               
                 lblScreen.Text = Number.ToString();
             }
 
